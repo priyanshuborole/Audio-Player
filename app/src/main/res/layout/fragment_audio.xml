@@ -10,14 +10,16 @@
     tools:context=".ui.AudioFragment">
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_prev"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="prev"
-        android:textStyle="bold"
         android:layout_margin="10dp"
-        android:textSize="24sp"/>
+        android:text="prev"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_play"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="play"
@@ -26,6 +28,7 @@
         android:textSize="24sp"/>
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_pause"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="pause"
@@ -34,6 +37,7 @@
         android:textSize="24sp"/>
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="next"
