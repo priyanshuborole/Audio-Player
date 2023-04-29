@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.media3.common.MediaItem
 import androidx.media3.common.MediaMetadata
+import androidx.media3.exoplayer.ExoPlayer
 import com.example.musicplayer.audio.AudioHandler
 import com.example.musicplayer.audio.PlayerEvent
 import com.example.musicplayer.audio.SimpleMediaState
@@ -25,6 +26,7 @@ import javax.inject.Inject
 @HiltViewModel
 class AudioViewModel @Inject constructor(
     private val audioHandler: AudioHandler,
+    private val player: ExoPlayer,
     private val sharedPreferences: SharedPreferences
 ) : ViewModel() {
     companion object {
@@ -34,6 +36,11 @@ class AudioViewModel @Inject constructor(
         private const val IS_PLAYING_KEY = "isPlaying"
     }
 
+    init {
+        Log.d("TAG", "isPlaying: ${player.isPlaying} ")
+        Log.d("TAG", "currentPosition: ${player.currentPosition} ")
+    }
+
     var duration: Long = 0L
     var progress: Float = 0f
     var progressString: String = "00:00"
@@ -41,23 +48,23 @@ class AudioViewModel @Inject constructor(
 
     fun updateDuration(duration: Long) {
         this@AudioViewModel.duration = duration
-        sharedPreferences.edit().putLong(DURATION_KEY, duration).apply()
+
     }
 
     fun updateProgress(progress: Float) {
         this@AudioViewModel.progress = progress
-        sharedPreferences.edit().putFloat(PROGRESS_KEY, progress).apply()
+
     }
 
     fun updateProgressString(progressString: String) {
         this@AudioViewModel.progressString = progressString
-        sharedPreferences.edit().putString(PROGRESS_STRING_KEY, progressString).apply()
+
         Log.d("NPCM", "updateProgressString: ${sharedPreferences.getString(PROGRESS_STRING_KEY,"")}")
     }
 
     fun updateIsPlaying(isPlaying: Boolean) {
         this@AudioViewModel.isPlaying = isPlaying
-        sharedPreferences.edit().putBoolean(IS_PLAYING_KEY, isPlaying).apply()
+
     }
 
 

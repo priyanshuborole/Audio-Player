@@ -1,5 +1,7 @@
 package com.example.musicplayer.audio
 
+import android.content.SharedPreferences
+import android.util.Log
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.exoplayer.ExoPlayer
@@ -13,6 +15,10 @@ class AudioHandler @Inject constructor(
         ): Player.Listener {
     private val _simpleMediaState = MutableStateFlow<SimpleMediaState>(SimpleMediaState.Initial)
     val simpleMediaState = _simpleMediaState.asStateFlow()
+
+    init {
+        Log.d("TAG", "AudioHandler: Initialize...")
+    }
 
     private var job: Job? = null
 
@@ -36,10 +42,12 @@ class AudioHandler @Inject constructor(
             PlayerEvent.Backward -> player.seekBack()
             PlayerEvent.Forward -> player.seekForward()
             PlayerEvent.PlayPause -> {
+                Log.d("TAG", "onPlayerEvent: ${player.currentPosition}")
                 if (player.isPlaying) {
                     player.pause()
                     stopProgressUpdate()
                 } else {
+                    player.seekTo((player.currentPosition))
                     player.play()
                     _simpleMediaState.value = SimpleMediaState.Playing(isPlaying = true)
                     startProgressUpdate()
